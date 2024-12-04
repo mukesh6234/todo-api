@@ -1,0 +1,68 @@
+org: mukeshm6234
+app: todo-api
+service: todo-api
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: us-east-1
+  environment:
+    MONGODB_URI: mongodb+srv://mukeshm6234:Mukeshmca7599@todo-cluster.q5p5y.mongodb.net/todo?retryWrites=true
+    JWT_SECRET: 788787898uR3t!@8g&fK#1$5xDkO@2#n^8y*Pqz!@VX9a%Lm
+
+functions:
+  signUp:
+    handler: src/handlers/signup.signup
+    events:
+      - http:
+          path: auth/signup
+          method: post
+          cors: true
+
+  login:
+    handler: src/handlers/login.login
+    events:
+      - http:
+          path: auth/login
+          method: put
+          cors: true
+
+  createTodo:
+    handler: src/handlers/createTodo.createTodo
+    events:
+      - http:
+          path: todos
+          method: post
+          cors: true
+
+  updateTodo:
+    handler: src/handlers/updateTodo.updateTodo
+    events:
+      - http:
+          path: todos/{id}
+          method: put
+          cors: true
+
+  listTodos:
+    handler: src/handlers/listTodos.listTodos
+    events:
+      - http:
+          path: todos
+          method: get
+          cors: true
+
+  getTodo:
+    handler: src/handlers/getTodo.getTodo
+    events:
+      - http:
+          path: todos/{id}
+          method: get
+          cors: true
+
+  deleteTodo:
+    handler: src/handlers/deleteTodo.deleteTodo
+    events:
+      - http:
+          path: todos/{id}
+          method: delete
+          cors: true
